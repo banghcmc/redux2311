@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
-var About = require('./Components/About.js');
+var About = require('About');
 ReactDOM.render(
   <About/>,
   document.getElementById('root')

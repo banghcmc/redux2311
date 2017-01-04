@@ -4,6 +4,15 @@ module.exports = {
     path: __dirname,
     filename: './public/bundle.js'
   },
+  resolve: {
+    root: __dirname,
+    alias: {
+      About: 'app/Components/About.js',
+      List: 'app/Components/List.js',
+      Note: 'app/Components/Note.js',
+      NoteForm: 'app/Components/NoteForm.js'
+    }
+  },
   module: {
     loaders: [
       {
