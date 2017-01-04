@@ -18,7 +18,13 @@ class List extends React.Component{
     mang.push({id: mang.length + 1, name: monHoc});
     this.setState(this.state);
   }
-
+//khoaphamtraining@gmail.com
+/*
+  NodeJS 2311
+  ten do an.
+  ten ban.
+  ngay sinh
+*/
   render(){
     return (
       <div>
@@ -31,5 +37,5 @@ class List extends React.Component{
 }
 
 module.exports = connect(function(state){
-  return state;
+  return {mang: state.mang};
 })(List);

@@ -1,11 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 var idNote = 10;
+
+function addSubject(item){
+  return {type: 'ADD_SUBJECT', item: item}
+}
+
 class NoteForm extends React.Component{
   add(){
     var {txt} = this.refs;
     var {dispatch} = this.props;
-    dispatch({type: 'ADD_SUBJECT', item: {id: ++idNote,name: txt.value}})
+    var item = {id: ++idNote,name: txt.value};
+    dispatch(addSubject(item))
     dispatch({type: 'TOGGLE'});
   }
   show(){

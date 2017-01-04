@@ -46,39 +46,15 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var redux = __webpack_require__(178);
 	var List = __webpack_require__(199);
 
 	var _require = __webpack_require__(201),
 	    Provider = _require.Provider;
 
-	var defaultState = { mang: [{ id: 1, name: 'Android' }, { id: 2, name: 'iOS' }, { id: 3, name: 'NodeJS' }], isAdding: false };
+	var store = __webpack_require__(219);
 
-	var reducer = function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'ADD_SUBJECT':
-	      return _extends({}, state, { mang: [].concat(_toConsumableArray(state.mang), [action.item]) });
-	    case 'REMOVE_SUBJECT':
-	      return _extends({}, state, { mang: state.mang.filter(function (e) {
-	          return e.id != action.id;
-	        }) });
-	    case 'TOGGLE':
-	      return _extends({}, state, { isAdding: !state.isAdding });
-	    default:
-	      return state;
-	  }
-	};
-
-	var store = redux.createStore(reducer);
 	//store.dispatch({type: 'ADD_SUBJECT', item: {id: 10, name: 'Unity'}})
 
 	ReactDOM.render(React.createElement(
@@ -86,8 +62,6 @@
 	  { store: store },
 	  React.createElement(List, null)
 	), document.getElementById('root'));
-
-	console.log(JSON.stringify(store.getState()));
 	// var obj = {a: 100, b: 'Pho'}
 	// var obj1 = Object.assign({}, obj);
 	// var obj1 = {...obj, a: 80}
@@ -22651,6 +22625,14 @@
 	      mang.push({ id: mang.length + 1, name: monHoc });
 	      this.setState(this.state);
 	    }
+	    //khoaphamtraining@gmail.com
+	    /*
+	      NodeJS 2311
+	      ten do an.
+	      ten ban.
+	      ngay sinh
+	    */
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -22672,7 +22654,7 @@
 	}(_react2.default.Component);
 
 	module.exports = (0, _reactRedux.connect)(function (state) {
-	  return state;
+	  return { mang: state.mang };
 	})(List);
 
 /***/ },
@@ -23957,6 +23939,10 @@
 
 	var idNote = 10;
 
+	function addSubject(item) {
+	  return { type: 'ADD_SUBJECT', item: item };
+	}
+
 	var NoteForm = function (_React$Component) {
 	  _inherits(NoteForm, _React$Component);
 
@@ -23972,7 +23958,8 @@
 	      var txt = this.refs.txt;
 	      var dispatch = this.props.dispatch;
 
-	      dispatch({ type: 'ADD_SUBJECT', item: { id: ++idNote, name: txt.value } });
+	      var item = { id: ++idNote, name: txt.value };
+	      dispatch(addSubject(item));
 	      dispatch({ type: 'TOGGLE' });
 	    }
 	  }, {
@@ -24013,6 +24000,40 @@
 	module.exports = (0, _reactRedux.connect)(function (state) {
 	  return { isAdd: state.isAdding };
 	})(NoteForm);
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var redux = __webpack_require__(178);
+	var defaultState = { mang: [{ id: 1, name: 'Android' }, { id: 2, name: 'iOS' }, { id: 3, name: 'NodeJS' }], isAdding: false };
+
+	var reducer = function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_SUBJECT':
+	      return _extends({}, state, { mang: [].concat(_toConsumableArray(state.mang), [action.item]) });
+	    case 'REMOVE_SUBJECT':
+	      return _extends({}, state, { mang: state.mang.filter(function (e) {
+	          return e.id != action.id;
+	        }) });
+	    case 'TOGGLE':
+	      return _extends({}, state, { isAdding: !state.isAdding });
+	    default:
+	      return state;
+	  }
+	};
+
+	var store = redux.createStore(reducer);
+	module.exports = store;
 
 /***/ }
 /******/ ]);

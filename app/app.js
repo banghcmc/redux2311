@@ -1,29 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var redux = require('redux');
 var List = require('List');
 var {Provider} = require('react-redux');
+var store = require('./mystore/store.js');
 
-var defaultState = {mang: [
-  {id: 1, name: 'Android'},
-  {id: 2, name: 'iOS'},
-  {id: 3, name: 'NodeJS'}
-], isAdding: false}
-
-var reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'ADD_SUBJECT':
-      return {...state, mang: [...state.mang, action.item]}
-    case 'REMOVE_SUBJECT':
-      return {...state, mang: state.mang.filter(e => e.id != action.id)}
-    case 'TOGGLE':
-      return {...state, isAdding: !state.isAdding}
-    default:
-    return state;
-  }
-}
-
-var store = redux.createStore(reducer);
 //store.dispatch({type: 'ADD_SUBJECT', item: {id: 10, name: 'Unity'}})
 
 ReactDOM.render(
@@ -32,9 +12,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
-
-console.log(JSON.stringify(store.getState()));
 // var obj = {a: 100, b: 'Pho'}
 // var obj1 = Object.assign({}, obj);
 // var obj1 = {...obj, a: 80}
