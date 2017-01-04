@@ -1,8 +1,9 @@
 import React from 'react';
-
-class About extends React.Component{
+import {connect} from 'react-redux';
+class Note extends React.Component{
   remove(){
-    this.props.handleRemove(this.props.info.id);
+    var {dispatch, info} = this.props;
+    dispatch({type: 'REMOVE_SUBJECT', id: info.id});
   }
   render(){
     var {name} = this.props.info;
@@ -15,4 +16,4 @@ class About extends React.Component{
   }
 }
 
-module.exports = About;
+module.exports = connect()(Note);

@@ -8,13 +8,21 @@ var defaultState = {mang: [
   {id: 1, name: 'Android'},
   {id: 2, name: 'iOS'},
   {id: 3, name: 'NodeJS'}
-]}
+], isAdding: false}
 
 var reducer = (state = defaultState, action) => {
-  return state;
+  switch (action.type) {
+    case 'ADD_SUBJECT':
+      return {...state, mang: [...state.mang, action.item]}
+    case 'REMOVE_SUBJECT':
+      return {...state, mang: state.mang.filter(e => e.id != action.id)}
+    default:
+    return state;
+  }
 }
 
 var store = redux.createStore(reducer);
+//store.dispatch({type: 'ADD_SUBJECT', item: {id: 10, name: 'Unity'}})
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,10 +1,11 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
+var idNote = 10;
 class NoteForm extends React.Component{
   add(){
     var {txt} = this.refs;
-    this.props.handleAdd(txt.value);
-    txt.value = '';
+    var {dispatch} = this.props;
+    dispatch({type: 'ADD_SUBJECT', item: {id: ++idNote,name: txt.value}})
   }
   render(){
     return (
@@ -17,4 +18,6 @@ class NoteForm extends React.Component{
   }
 }
 
-module.exports = NoteForm;
+module.exports = connect(function(state){
+  return {isAdd: state.isAdding}
+})(NoteForm);
