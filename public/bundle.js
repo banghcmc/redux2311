@@ -71,6 +71,8 @@
 	      return _extends({}, state, { mang: state.mang.filter(function (e) {
 	          return e.id != action.id;
 	        }) });
+	    case 'TOGGLE':
+	      return _extends({}, state, { isAdding: !state.isAdding });
 	    default:
 	      return state;
 	  }
@@ -23971,21 +23973,36 @@
 	      var dispatch = this.props.dispatch;
 
 	      dispatch({ type: 'ADD_SUBJECT', item: { id: ++idNote, name: txt.value } });
+	      dispatch({ type: 'TOGGLE' });
+	    }
+	  }, {
+	    key: 'show',
+	    value: function show() {
+	      var dispatch = this.props.dispatch;
+
+	      dispatch({ type: 'TOGGLE' });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (this.props.isAdd) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement('input', { type: 'text', ref: 'txt', placeholder: 'Nh\u1EADp m\xF4n h\u1ECDc' }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.add.bind(this) },
+	            'Th\xEAm'
+	          )
+	        );
+	      }
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('input', { type: 'text', ref: 'txt', placeholder: 'Nh\u1EADp m\xF4n h\u1ECDc' }),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.add.bind(this) },
-	          'Th\xEAm'
-	        )
+	        'button',
+	        { onClick: this.show.bind(this) },
+	        'Add'
 	      );
 	    }
 	  }]);

@@ -16,6 +16,8 @@ var reducer = (state = defaultState, action) => {
       return {...state, mang: [...state.mang, action.item]}
     case 'REMOVE_SUBJECT':
       return {...state, mang: state.mang.filter(e => e.id != action.id)}
+    case 'TOGGLE':
+      return {...state, isAdding: !state.isAdding}
     default:
     return state;
   }
