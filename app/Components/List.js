@@ -10,11 +10,19 @@ class About extends React.Component{
       {id: 3, name: 'ReactJS'}
     ]};
   }
+
+  handleRemove(id){
+    var index = this.state.mang.findIndex(e => e.id == id);
+    this.state.mang.splice(index, 1);
+    this.setState(this.state);
+  }
+
   render(){
     return (
       <div>
         <NoteForm/>
-        {this.state.mang.map(e => <Note key={e.id} info={e}/>)}
+        {this.state.mang.map(e => <Note key={e.id} info={e}
+          handleRemove={this.handleRemove.bind(this)}/>)}
       </div>
     )
   }

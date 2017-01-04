@@ -22602,14 +22602,26 @@
 	  }
 
 	  _createClass(About, [{
+	    key: 'handleRemove',
+	    value: function handleRemove(id) {
+	      var index = this.state.mang.findIndex(function (e) {
+	        return e.id == id;
+	      });
+	      this.state.mang.splice(index, 1);
+	      this.setState(this.state);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_NoteForm2.default, null),
 	        this.state.mang.map(function (e) {
-	          return _react2.default.createElement(_Note2.default, { key: e.id, info: e });
+	          return _react2.default.createElement(_Note2.default, { key: e.id, info: e,
+	            handleRemove: _this2.handleRemove.bind(_this2) });
 	        })
 	      );
 	    }
@@ -22650,6 +22662,11 @@
 	  }
 
 	  _createClass(About, [{
+	    key: 'remove',
+	    value: function remove() {
+	      this.props.handleRemove(this.props.info.id);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var name = this.props.info.name;
@@ -22664,7 +22681,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'button',
-	          null,
+	          { onClick: this.remove.bind(this) },
 	          'Xo\xE1'
 	        )
 	      );
