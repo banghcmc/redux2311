@@ -17,10 +17,16 @@ class About extends React.Component{
     this.setState(this.state);
   }
 
+  handleAdd(monHoc){
+    var {mang} = this.state;
+    mang.push({id: mang.length + 1, name: monHoc});
+    this.setState(this.state);
+  }
+
   render(){
     return (
       <div>
-        <NoteForm/>
+        <NoteForm handleAdd={this.handleAdd.bind(this)}/>
         {this.state.mang.map(e => <Note key={e.id} info={e}
           handleRemove={this.handleRemove.bind(this)}/>)}
       </div>

@@ -22611,6 +22611,14 @@
 	      this.setState(this.state);
 	    }
 	  }, {
+	    key: 'handleAdd',
+	    value: function handleAdd(monHoc) {
+	      var mang = this.state.mang;
+
+	      mang.push({ id: mang.length + 1, name: monHoc });
+	      this.setState(this.state);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -22618,7 +22626,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_NoteForm2.default, null),
+	        _react2.default.createElement(_NoteForm2.default, { handleAdd: this.handleAdd.bind(this) }),
 	        this.state.mang.map(function (e) {
 	          return _react2.default.createElement(_Note2.default, { key: e.id, info: e,
 	            handleRemove: _this2.handleRemove.bind(_this2) });
@@ -22697,7 +22705,7 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22723,18 +22731,26 @@
 	  }
 
 	  _createClass(NoteForm, [{
-	    key: "render",
+	    key: 'add',
+	    value: function add() {
+	      var txt = this.refs.txt;
+
+	      this.props.handleAdd(txt.value);
+	      txt.value = '';
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
-	        _react2.default.createElement("input", { type: "text", ref: "txt", placeholder: "Nh\u1EADp m\xF4n h\u1ECDc" }),
-	        _react2.default.createElement("br", null),
-	        _react2.default.createElement("br", null),
+	        _react2.default.createElement('input', { type: 'text', ref: 'txt', placeholder: 'Nh\u1EADp m\xF4n h\u1ECDc' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
-	          "button",
-	          null,
-	          "Th\xEAm"
+	          'button',
+	          { onClick: this.add.bind(this) },
+	          'Th\xEAm'
 	        )
 	      );
 	    }
