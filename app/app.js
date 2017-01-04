@@ -2,11 +2,29 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
 var List = require('List');
+var {Provider} = require('react-redux');
+
+var defaultState = {mang: [
+  {id: 1, name: 'Android'},
+  {id: 2, name: 'iOS'},
+  {id: 3, name: 'NodeJS'}
+]}
+
+var reducer = (state = defaultState, action) => {
+  return state;
+}
+
+var store = redux.createStore(reducer);
+
 ReactDOM.render(
-  <List/>,
+  <Provider store={store}>
+    <List/>
+  </Provider>,
   document.getElementById('root')
 );
 
+
+console.log(JSON.stringify(store.getState()));
 // var obj = {a: 100, b: 'Pho'}
 // var obj1 = Object.assign({}, obj);
 // var obj1 = {...obj, a: 80}
@@ -16,7 +34,6 @@ ReactDOM.render(
 // function add(a, b){
 //   return a + b;
 // }
-
 // var reducerNhietDo = (nhietDo = 30, action) => {
 //   switch (action.type) {
 //     case 'INCR_TEMP':

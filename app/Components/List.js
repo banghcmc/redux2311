@@ -1,14 +1,10 @@
 import React from 'react';
 import Note from 'Note';
 import NoteForm from 'NoteForm';
-class About extends React.Component{
+import {connect} from 'react-redux';
+class List extends React.Component{
   constructor(props){
     super(props);
-    this.state = {mang: [
-      {id: 1, name: 'Android'},
-      {id: 2, name: 'iOS'},
-      {id: 3, name: 'ReactJS'}
-    ]};
   }
 
   handleRemove(id){
@@ -18,7 +14,7 @@ class About extends React.Component{
   }
 
   handleAdd(monHoc){
-    var {mang} = this.state;
+    var {mang} = this.props;
     mang.push({id: mang.length + 1, name: monHoc});
     this.setState(this.state);
   }
@@ -27,11 +23,13 @@ class About extends React.Component{
     return (
       <div>
         <NoteForm handleAdd={this.handleAdd.bind(this)}/>
-        {this.state.mang.map(e => <Note key={e.id} info={e}
+        {this.props.mang.map(e => <Note key={e.id} info={e}
           handleRemove={this.handleRemove.bind(this)}/>)}
       </div>
     )
   }
 }
 
-module.exports = About;
+module.exports = connect(function(state){
+  return state;
+})(List);
