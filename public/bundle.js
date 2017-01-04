@@ -46,13 +46,11 @@
 
 	'use strict';
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var redux = __webpack_require__(178);
-	var About = __webpack_require__(199);
-	ReactDOM.render(React.createElement(About, null), document.getElementById('root'));
+	var List = __webpack_require__(200);
+	ReactDOM.render(React.createElement(List, null), document.getElementById('root'));
 
 	// var obj = {a: 100, b: 'Pho'}
 	// var obj1 = Object.assign({}, obj);
@@ -64,69 +62,58 @@
 	//   return a + b;
 	// }
 
-	var reducerNhietDo = function reducerNhietDo() {
-	  var nhietDo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 30;
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'INCR_TEMP':
-	      return nhietDo + action.addingTemp;
-	    default:
-	      return nhietDo;
-	  }
-	};
-
-	var reducerDoAm = function reducerDoAm() {
-	  var doAm = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 80;
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'CHANGE_HUMIDITY':
-	      return action.doAmMoi;
-	    default:
-	      return doAm;
-	  }
-	};
+	// var reducerNhietDo = (nhietDo = 30, action) => {
+	//   switch (action.type) {
+	//     case 'INCR_TEMP':
+	//       return nhietDo + action.addingTemp
+	//     default:
+	//       return nhietDo;
+	//   }
+	// }
+	//
+	// var reducerDoAm = (doAm = 80, action) => {
+	//   switch (action.type) {
+	//     case 'CHANGE_HUMIDITY':
+	//       return action.doAmMoi
+	//     default:
+	//       return doAm;
+	//   }
+	// }
 	//Them mon hoc (truyen vao ten), xoa mon hoc (index)
-	var reducerMonHoc = function reducerMonHoc() {
-	  var mangMonHoc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ['Android', 'iOS'];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'ADD_ITEM':
-	      return [].concat(_toConsumableArray(mangMonHoc), [action.monHoc]);
-	    case 'REMOVE_ITEM':
-	      return mangMonHoc.filter(function (e, i) {
-	        return i != action.index;
-	      });
-	    default:
-	      return mangMonHoc;
-	  }
-	};
-
-	var reducer = redux.combineReducers({
-	  nhietDo: reducerNhietDo,
-	  doAm: reducerDoAm,
-	  mang: reducerMonHoc
-	});
-
-	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
-	  return f;
-	}));
-
-	store.subscribe(function () {
-	  // console.log(store.getState());
-	  document.getElementById('txt').innerHTML = JSON.stringify(store.getState());
-	});
-
-	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
-	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
-	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
-	store.dispatch({ type: 'CHANGE_HUMIDITY', doAmMoi: 90 });
-	store.dispatch({ type: 'ADD_ITEM', monHoc: 'NodeJS' });
-	store.dispatch({ type: 'ADD_ITEM', monHoc: 'ReactJS' });
-	store.dispatch({ type: 'ADD_ITEM', monHoc: 'PHP' });
-	store.dispatch({ type: 'REMOVE_ITEM', index: 1 });
+	// var reducerMonHoc = (mangMonHoc = ['Android', 'iOS'], action) => {
+	//   switch (action.type) {
+	//     case 'ADD_ITEM':
+	//       return [...mangMonHoc, action.monHoc]
+	//     case 'REMOVE_ITEM':
+	//       return  mangMonHoc.filter((e, i) => i != action.index)
+	//     default:
+	//       return mangMonHoc;
+	//   }
+	// }
+	//
+	// var reducer = redux.combineReducers({
+	//   nhietDo: reducerNhietDo,
+	//   doAm: reducerDoAm,
+	//   mang: reducerMonHoc
+	// });
+	//
+	// var store = redux.createStore(reducer, redux.compose(
+	//   window.devToolsExtension? window.devToolsExtension(): f=>f
+	// ));
+	//
+	// store.subscribe(() => {
+	//   // console.log(store.getState());
+	//   document.getElementById('txt').innerHTML = JSON.stringify(store.getState());
+	// })
+	//
+	// store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
+	// store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
+	// store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
+	// store.dispatch({type: 'CHANGE_HUMIDITY', doAmMoi: 90});
+	// store.dispatch({type: 'ADD_ITEM', monHoc: 'NodeJS'});
+	// store.dispatch({type: 'ADD_ITEM', monHoc: 'ReactJS'});
+	// store.dispatch({type: 'ADD_ITEM', monHoc: 'PHP'});
+	// store.dispatch({type: 'REMOVE_ITEM', index: 1});
 
 /***/ },
 /* 1 */
@@ -22574,7 +22561,67 @@
 	}
 
 /***/ },
-/* 199 */
+/* 199 */,
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Note = __webpack_require__(201);
+
+	var _Note2 = _interopRequireDefault(_Note);
+
+	var _NoteForm = __webpack_require__(202);
+
+	var _NoteForm2 = _interopRequireDefault(_NoteForm);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var About = function (_React$Component) {
+	  _inherits(About, _React$Component);
+
+	  function About(props) {
+	    _classCallCheck(this, About);
+
+	    var _this = _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).call(this, props));
+
+	    _this.state = { mang: [{ id: 1, name: 'Android' }, { id: 2, name: 'iOS' }, { id: 3, name: 'ReactJS' }] };
+	    return _this;
+	  }
+
+	  _createClass(About, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_NoteForm2.default, null),
+	        this.state.mang.map(function (e) {
+	          return _react2.default.createElement(_Note2.default, { key: e.id, info: e });
+	        })
+	      );
+	    }
+	  }]);
+
+	  return About;
+	}(_react2.default.Component);
+
+	module.exports = About;
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22605,10 +22652,21 @@
 	  _createClass(About, [{
 	    key: 'render',
 	    value: function render() {
+	      var name = this.props.info.name;
+
 	      return _react2.default.createElement(
-	        'h1',
+	        'div',
 	        null,
-	        'About component'
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          name
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          null,
+	          'Xo\xE1'
+	        )
 	      );
 	    }
 	  }]);
@@ -22617,6 +22675,58 @@
 	}(_react2.default.Component);
 
 	module.exports = About;
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NoteForm = function (_React$Component) {
+	  _inherits(NoteForm, _React$Component);
+
+	  function NoteForm() {
+	    _classCallCheck(this, NoteForm);
+
+	    return _possibleConstructorReturn(this, (NoteForm.__proto__ || Object.getPrototypeOf(NoteForm)).apply(this, arguments));
+	  }
+
+	  _createClass(NoteForm, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement("input", { type: "text", ref: "txt", placeholder: "Nh\u1EADp m\xF4n h\u1ECDc" }),
+	        _react2.default.createElement("br", null),
+	        _react2.default.createElement("br", null),
+	        _react2.default.createElement(
+	          "button",
+	          null,
+	          "Th\xEAm"
+	        )
+	      );
+	    }
+	  }]);
+
+	  return NoteForm;
+	}(_react2.default.Component);
+
+	module.exports = NoteForm;
 
 /***/ }
 /******/ ]);

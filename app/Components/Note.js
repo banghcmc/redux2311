@@ -2,7 +2,13 @@ import React from 'react';
 
 class About extends React.Component{
   render(){
-    return <h1>About component</h1>
+    var {name} = this.props.info;
+    return (
+      <div>
+        <p>{name}</p>
+        <button>Xoá</button>
+      </div>
+    )
   }
 }
 

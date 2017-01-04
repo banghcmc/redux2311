@@ -1,9 +1,15 @@
 import React from 'react';
 
-class About extends React.Component{
+class NoteForm extends React.Component{
   render(){
-    return <h1>About component</h1>
+    return (
+      <div>
+        <input type="text" ref="txt" placeholder="Nhập môn học"/>
+        <br/><br/>
+        <button>Thêm</button>
+      </div>
+    )
   }
 }
 
-module.exports = About;
+module.exports = NoteForm;
