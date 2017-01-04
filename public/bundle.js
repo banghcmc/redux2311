@@ -46,6 +46,8 @@
 
 	'use strict';
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var redux = __webpack_require__(179);
@@ -85,10 +87,27 @@
 	      return doAm;
 	  }
 	};
+	//Them mon hoc (truyen vao ten), xoa mon hoc (index)
+	var reducerMonHoc = function reducerMonHoc() {
+	  var mangMonHoc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ['Android', 'iOS'];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_ITEM':
+	      return [].concat(_toConsumableArray(mangMonHoc), [action.monHoc]);
+	    case 'REMOVE_ITEM':
+	      return mangMonHoc.filter(function (e, i) {
+	        return i != action.index;
+	      });
+	    default:
+	      return mangMonHoc;
+	  }
+	};
 
 	var reducer = redux.combineReducers({
 	  nhietDo: reducerNhietDo,
-	  doAm: reducerDoAm
+	  doAm: reducerDoAm,
+	  mang: reducerMonHoc
 	});
 
 	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
@@ -104,6 +123,10 @@
 	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
 	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
 	store.dispatch({ type: 'CHANGE_HUMIDITY', doAmMoi: 90 });
+	store.dispatch({ type: 'ADD_ITEM', monHoc: 'NodeJS' });
+	store.dispatch({ type: 'ADD_ITEM', monHoc: 'ReactJS' });
+	store.dispatch({ type: 'ADD_ITEM', monHoc: 'PHP' });
+	store.dispatch({ type: 'REMOVE_ITEM', index: 1 });
 
 /***/ },
 /* 1 */

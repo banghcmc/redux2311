@@ -34,10 +34,22 @@ var reducerDoAm = (doAm = 80, action) => {
       return doAm;
   }
 }
+//Them mon hoc (truyen vao ten), xoa mon hoc (index)
+var reducerMonHoc = (mangMonHoc = ['Android', 'iOS'], action) => {
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return [...mangMonHoc, action.monHoc]
+    case 'REMOVE_ITEM':
+      return  mangMonHoc.filter((e, i) => i != action.index)
+    default:
+      return mangMonHoc;
+  }
+}
 
 var reducer = redux.combineReducers({
   nhietDo: reducerNhietDo,
-  doAm: reducerDoAm
+  doAm: reducerDoAm,
+  mang: reducerMonHoc
 });
 
 var store = redux.createStore(reducer, redux.compose(
@@ -53,3 +65,7 @@ store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
 store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
 store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
 store.dispatch({type: 'CHANGE_HUMIDITY', doAmMoi: 90});
+store.dispatch({type: 'ADD_ITEM', monHoc: 'NodeJS'});
+store.dispatch({type: 'ADD_ITEM', monHoc: 'ReactJS'});
+store.dispatch({type: 'ADD_ITEM', monHoc: 'PHP'});
+store.dispatch({type: 'REMOVE_ITEM', index: 1});
