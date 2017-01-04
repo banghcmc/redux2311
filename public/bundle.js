@@ -62,16 +62,48 @@
 	//   return a + b;
 	// }
 
-	var reducer = function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { nhietDo: 30 };
+	var reducerNhietDo = function reducerNhietDo() {
+	  var nhietDo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 30;
 	  var action = arguments[1];
 
-	  return state;
+	  switch (action.type) {
+	    case 'INCR_TEMP':
+	      return nhietDo + action.addingTemp;
+	    default:
+	      return nhietDo;
+	  }
 	};
 
-	var store = redux.createStore(reducer);
+	var reducerDoAm = function reducerDoAm() {
+	  var doAm = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 80;
+	  var action = arguments[1];
 
-	console.log(store.getState());
+	  switch (action.type) {
+	    case 'CHANGE_HUMIDITY':
+	      return action.doAmMoi;
+	    default:
+	      return doAm;
+	  }
+	};
+
+	var reducer = redux.combineReducers({
+	  nhietDo: reducerNhietDo,
+	  doAm: reducerDoAm
+	});
+
+	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	  return f;
+	}));
+
+	store.subscribe(function () {
+	  // console.log(store.getState());
+	  document.getElementById('txt').innerHTML = JSON.stringify(store.getState());
+	});
+
+	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
+	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
+	store.dispatch({ type: 'INCR_TEMP', addingTemp: 1 });
+	store.dispatch({ type: 'CHANGE_HUMIDITY', doAmMoi: 90 });
 
 /***/ },
 /* 1 */

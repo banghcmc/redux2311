@@ -17,10 +17,39 @@ ReactDOM.render(
 //   return a + b;
 // }
 
-var reducer = (state = {nhietDo: 30}, action) => {
-  return state;
+var reducerNhietDo = (nhietDo = 30, action) => {
+  switch (action.type) {
+    case 'INCR_TEMP':
+      return nhietDo + action.addingTemp
+    default:
+      return nhietDo;
+  }
 }
 
-var store = redux.createStore(reducer);
+var reducerDoAm = (doAm = 80, action) => {
+  switch (action.type) {
+    case 'CHANGE_HUMIDITY':
+      return action.doAmMoi
+    default:
+      return doAm;
+  }
+}
 
-console.log(store.getState());
+var reducer = redux.combineReducers({
+  nhietDo: reducerNhietDo,
+  doAm: reducerDoAm
+});
+
+var store = redux.createStore(reducer, redux.compose(
+  window.devToolsExtension? window.devToolsExtension(): f=>f
+));
+
+store.subscribe(() => {
+  // console.log(store.getState());
+  document.getElementById('txt').innerHTML = JSON.stringify(store.getState());
+})
+
+store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
+store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
+store.dispatch({type: 'INCR_TEMP', addingTemp: 1});
+store.dispatch({type: 'CHANGE_HUMIDITY', doAmMoi: 90});
